@@ -967,6 +967,20 @@
                 if (loader) loader.style.display = 'none';
             }, 600); // attende la transizione
         });
+
+        // --- SCROLL FLUIDO PER IL BOTTONE INFO ---
+        document.addEventListener('DOMContentLoaded', function () {
+            const infoBtn = document.querySelector('a.info-btn[href="#chi-sono"]');
+            if (infoBtn) {
+                infoBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.getElementById('chi-sono');
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
