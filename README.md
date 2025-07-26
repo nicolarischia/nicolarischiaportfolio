@@ -35,13 +35,6 @@ Qui puoi trovare il codice sorgente del sito che presenta le mie competenze, i m
 - **CSS3** (con Boxicons, FontAwesome, Simple Icons)
 - **JavaScript** (per animazioni, carosello, scroll fluido)
 
-## Personalizzazione
-
-Puoi modificare facilmente:
-- I dati personali e i testi nelle varie sezioni
-- Le immagini dei progetti nella cartella `img/`
-- I link ai tuoi social e ai tuoi progetti
-
 ## Autore
 
 **Nicola Rischia**  
