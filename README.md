@@ -3,9 +3,9 @@
 Benvenuto nel repository del mio portfolio personale!  
 Qui puoi trovare il codice sorgente del sito che presenta le mie competenze, i miei progetti e i servizi che offro come sviluppatore web.
 
-## Demo
+## Preview
 
-🌐 [nicolarischiaportfolio ->](https://github.com/nicolarischia/nicolarischiaportfolio)
+🌐 [SITO WEB ONLINE](https://nicolarischia.github.io/nicolarischiaportfolio/)
 
 ## Caratteristiche
 
