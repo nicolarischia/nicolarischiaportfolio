@@ -66,6 +66,15 @@
             font-size: 1.2rem;
         }
 
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            /* Spazio uniforme tra i bottoni */
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
         header a {
             display: inline-block;
             padding: 0.75rem 1.5rem;
@@ -375,6 +384,7 @@
             color: var(--bg-color);
             transition: background 0.3s ease;
             border: none;
+            font-size: 1.2rem;
         }
 
         .info-btn:hover {
@@ -580,6 +590,152 @@
             pointer-events: none;
             transition: opacity 0.5s;
         }
+
+        /* --- STILI MODALE RICERCA --- */
+        #search-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+        }
+
+        .search-backdrop {
+            position: absolute;
+            inset: 0;
+            background: #000a;
+            z-index: 1;
+        }
+
+        .search-box {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            border-radius: 1.3rem;
+            padding: 2rem 6vw 1.5rem 6vw;
+            min-width: 1000px;
+            max-width: 1400px;
+            box-shadow: 0 8px 32px 0 #0006, 0 2px 24px #7cf03d33;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            border: none;
+            overflow: hidden;
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+        }
+
+        .search-box::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1.3rem;
+            pointer-events: none;
+            z-index: 1;
+            padding: 2px;
+            background: transparent;
+            background-size: 400% 400%;
+            filter: blur(4px);
+            opacity: 0.8;
+            animation: borderGlow 6s linear infinite;
+            box-shadow: 0 0 0 2px #fff2 inset;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .search-box>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        #close-search {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--main-color);
+            cursor: pointer;
+            z-index: 3;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        #close-search:hover {
+            opacity: 1;
+        }
+
+        #search-input {
+            padding: 1rem 1.2rem;
+            border-radius: 0.7rem;
+            border: none;
+            font-size: 1.15rem;
+            margin-bottom: 1.2rem;
+            outline: none;
+            background: rgba(255, 255, 255, 0.13);
+            color: var(--white-color);
+            box-shadow: 0 2px 8px #0002;
+            transition: background 0.2s;
+        }
+
+        #search-input:focus {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        #search-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .search-section-title {
+            font-size: 1.05rem;
+            color: var(--main-color);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-align: left;
+        }
+
+        .search-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .search-section ul li {
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.6rem;
+            cursor: pointer;
+            color: var(--white-color);
+            font-size: 1.08rem;
+            transition: background 0.18s, color 0.18s;
+            margin-bottom: 0.2rem;
+            background: transparent;
+        }
+
+        .search-section ul li:hover,
+        .search-section ul li.active {
+            background: linear-gradient(90deg, #7cf03d 0%, #ffa500 100%);
+            color: var(--bg-color);
+        }
+
+        /* ...existing code... */
     </style>
 </head>
 
@@ -595,11 +751,15 @@
         <div>
             <h1>Nicola Rischia</h1>
             <p>Sviluppatore web appassionato di design e tecnologie moderne.</p>
-            <a href="#chi-sono" aria-label="Info" class="info-btn"><i class="fas fa-info-circle"></i></a>
-            <a href="cv-nicola-rischia.pdf" download class="info-btn" aria-label="Scarica CV"
-                style="margin-left: 0.5rem;">
-                <i class="fas fa-scroll"></i>
-            </a>
+            <div class="header-buttons">
+                <a href="#chi-sono" aria-label="Info" class="info-btn"><i class="fas fa-info-circle"></i></a>
+                <button id="open-search" aria-label="Cerca nel sito" class="info-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <a href="cv-nicola-rischia.pdf" download class="info-btn" aria-label="Scarica CV">
+                    <i class="fas fa-scroll"></i>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -788,6 +948,29 @@
         <a href="#skills" class="timeline-dot" data-section="skills" title="Skills"></a>
         <a href="#progetti" class="timeline-dot" data-section="progetti" title="Progetti"></a>
         <a href="#contatti" class="timeline-dot" data-section="contatti" title="Contatti"></a>
+    </div>
+
+    <!-- Modale di ricerca -->
+    <div id="search-modal" style="display:none;">
+        <div class="search-backdrop"></div>
+        <div class="search-box">
+            <button id="close-search" aria-label="Chiudi ricerca">&times;</button>
+            <input type="text" id="search-input" placeholder="Cerca nel sito..." autocomplete="off" />
+            <div id="search-sections">
+                <div class="search-section">
+                    <div class="search-section-title">Naviga alle sezioni</div>
+                    <ul id="search-suggestions-sections"></ul>
+                </div>
+                <div class="search-section">
+                    <div class="search-section-title">Azioni rapide</div>
+                    <ul id="search-suggestions-actions"></ul>
+                </div>
+                <div class="search-section">
+                    <div class="search-section-title">Risultati nel sito</div>
+                    <ul id="search-suggestions-content"></ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -980,6 +1163,272 @@
                     }
                 });
             }
+        });
+
+        // --- SCRIPT MODALE RICERCA ---
+        document.addEventListener('DOMContentLoaded', function () {
+            const openSearchBtn = document.getElementById('open-search');
+            const searchModal = document.getElementById('search-modal');
+            const closeSearchBtn = document.getElementById('close-search');
+            const searchInput = document.getElementById('search-input');
+            const suggestionsSections = document.getElementById('search-suggestions-sections');
+            const suggestionsActions = document.getElementById('search-suggestions-actions');
+            const suggestionsContent = document.getElementById('search-suggestions-content');
+            let currentSectionIndex = -1;
+            let currentActionIndex = -1;
+            let currentContentIndex = -1;
+
+            const sectionData = [
+                { label: "Chi Sono", keywords: ["chi sono", "presentazione", "about"], target: "#chi-sono" },
+                { label: "Servizi", keywords: ["servizi", "offerta", "web", "wix", "dati", "networking", "form"], target: "#services" },
+                { label: "Skills", keywords: ["skills", "competenze", "linguaggi", "tecnologie"], target: "#skills" },
+                { label: "Progetti", keywords: ["progetti", "portfolio", "lavori", "project"], target: "#progetti" },
+                { label: "Contatti", keywords: ["contatti", "email", "github", "linkedin", "whatsapp"], target: "#contatti" }
+            ];
+            const actionData = [
+                { label: "Scarica CV", keywords: ["cv", "curriculum", "scarica", "download"], action: "download-cv", href: "cv-nicola-rischia.pdf" }
+            ];
+
+            // Indicizza i contenuti testuali del sito per la ricerca libera
+            function getContentIndex() {
+                const results = [];
+                // Cerca in tutte le sezioni principali
+                document.querySelectorAll('section').forEach(section => {
+                    const id = section.id;
+                    const title = section.querySelector('h2') ? section.querySelector('h2').innerText : '';
+                    const text = section.innerText.replace(/\s+/g, ' ').trim();
+                    if (title && text) {
+                        results.push({
+                            label: `${title}`,
+                            snippet: text.length > 120 ? text.slice(0, 120) + '...' : text,
+                            target: `#${id}`
+                        });
+                    }
+                });
+                // Cerca anche nei progetti (portfolio-detail)
+                document.querySelectorAll('.portfolio-detail').forEach((el, idx) => {
+                    const title = el.querySelector('h3') ? el.querySelector('h3').innerText : '';
+                    const text = el.innerText.replace(/\s+/g, ' ').trim();
+                    if (title && text) {
+                        results.push({
+                            label: `Progetto: ${title}`,
+                            snippet: text.length > 120 ? text.slice(0, 120) + '...' : text,
+                            target: '#progetti'
+                        });
+                    }
+                });
+                // Cerca anche nei contatti
+                document.querySelectorAll('.contacts a').forEach(link => {
+                    const label = link.innerText.trim();
+                    const href = link.getAttribute('href');
+                    if (label && href) {
+                        results.push({
+                            label: `Contatto: ${label}`,
+                            snippet: href,
+                            target: href.startsWith('http') || href.startsWith('mailto') ? href : '#contatti',
+                            isExternal: href.startsWith('http') || href.startsWith('mailto')
+                        });
+                    }
+                });
+                return results;
+            }
+
+            let contentIndex = getContentIndex();
+
+            function showModal() {
+                searchModal.style.display = 'flex';
+                setTimeout(() => {
+                    searchModal.classList.add('visible');
+                }, 10);
+                searchInput.value = '';
+                updateSuggestions('');
+                searchInput.focus();
+                document.body.style.overflow = 'hidden';
+            }
+
+            function hideModal() {
+                searchModal.classList.remove('visible');
+                setTimeout(() => {
+                    searchModal.style.display = 'none';
+                }, 300);
+                document.body.style.overflow = '';
+            }
+
+            function updateSuggestions(query) {
+                const q = query.trim().toLowerCase();
+                // Sezioni
+                let sectionResults = [];
+                if (q === "") {
+                    sectionResults = sectionData;
+                } else {
+                    sectionResults = sectionData.filter(item =>
+                        item.label.toLowerCase().includes(q) ||
+                        item.keywords.some(k => k.includes(q))
+                    );
+                }
+                suggestionsSections.innerHTML = sectionResults.map((item, idx) =>
+                    `<li data-target="${item.target}"${idx === 0 ? ' class="active"' : ''}>${item.label}</li>`
+                ).join('');
+                currentSectionIndex = sectionResults.length ? 0 : -1;
+
+                // Azioni (es. scarica CV)
+                let actionResults = [];
+                if (q === "") {
+                    actionResults = actionData;
+                } else {
+                    actionResults = actionData.filter(item =>
+                        item.label.toLowerCase().includes(q) ||
+                        item.keywords.some(k => k.includes(q))
+                    );
+                }
+                suggestionsActions.innerHTML = actionResults.map((item, idx) =>
+                    `<li data-action="${item.action}" data-href="${item.href || ''}"${idx === 0 ? ' class="active"' : ''}>${item.label}</li>`
+                ).join('');
+                currentActionIndex = actionResults.length ? 0 : -1;
+
+                // Ricerca libera nei contenuti
+                let contentResults = [];
+                if (q.length > 1) {
+                    contentResults = contentIndex.filter(item =>
+                        item.label.toLowerCase().includes(q) ||
+                        item.snippet.toLowerCase().includes(q)
+                    );
+                }
+                suggestionsContent.innerHTML = contentResults.map((item, idx) =>
+                    `<li data-target="${item.target}" data-external="${item.isExternal ? '1' : ''}"${idx === 0 ? ' class="active"' : ''}>
+                <strong>${item.label}</strong><br>
+                <span style="font-size:0.95em;color:#ccc;">${item.snippet}</span>
+            </li>`
+                ).join('');
+                currentContentIndex = contentResults.length ? 0 : -1;
+            }
+
+            openSearchBtn.addEventListener('click', showModal);
+            closeSearchBtn.addEventListener('click', hideModal);
+            searchModal.querySelector('.search-backdrop').addEventListener('click', hideModal);
+
+            searchInput.addEventListener('input', e => {
+                updateSuggestions(e.target.value);
+            });
+
+            // Gestione tastiera: frecce su/giù tra sezioni, azioni e contenuti, invio per selezionare
+            searchInput.addEventListener('keydown', e => {
+                const sectionItems = suggestionsSections.querySelectorAll('li');
+                const actionItems = suggestionsActions.querySelectorAll('li');
+                const contentItems = suggestionsContent.querySelectorAll('li');
+                let total = sectionItems.length + actionItems.length + contentItems.length;
+                if (!total) return;
+
+                // Navigazione con frecce
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (currentSectionIndex < sectionItems.length - 1) {
+                        currentSectionIndex++;
+                        currentActionIndex = -1;
+                        currentContentIndex = -1;
+                    } else if (actionItems.length && currentActionIndex < actionItems.length - 1) {
+                        currentActionIndex++;
+                        currentSectionIndex = sectionItems.length - 1;
+                        currentContentIndex = -1;
+                    } else if (contentItems.length && currentContentIndex < contentItems.length - 1) {
+                        currentContentIndex++;
+                        currentSectionIndex = sectionItems.length - 1;
+                        currentActionIndex = actionItems.length - 1;
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (currentContentIndex > 0) {
+                        currentContentIndex--;
+                    } else if (currentContentIndex === 0) {
+                        currentContentIndex = -1;
+                        currentActionIndex = actionItems.length - 1;
+                    } else if (currentActionIndex > 0) {
+                        currentActionIndex--;
+                    } else if (currentActionIndex === 0) {
+                        currentActionIndex = -1;
+                        currentSectionIndex = sectionItems.length - 1;
+                    } else if (currentSectionIndex > 0) {
+                        currentSectionIndex--;
+                    }
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (currentSectionIndex >= 0 && sectionItems[currentSectionIndex]) {
+                        sectionItems[currentSectionIndex].click();
+                    } else if (currentActionIndex >= 0 && actionItems[currentActionIndex]) {
+                        actionItems[currentActionIndex].click();
+                    } else if (currentContentIndex >= 0 && contentItems[currentContentIndex]) {
+                        contentItems[currentContentIndex].click();
+                    }
+                }
+                sectionItems.forEach((li, idx) => li.classList.toggle('active', idx === currentSectionIndex));
+                actionItems.forEach((li, idx) => li.classList.toggle('active', idx === currentActionIndex));
+                contentItems.forEach((li, idx) => li.classList.toggle('active', idx === currentContentIndex));
+            });
+
+            // Click sulle sezioni
+            suggestionsSections.addEventListener('click', function (e) {
+                if (e.target.tagName === 'LI') {
+                    const target = e.target.getAttribute('data-target');
+                    hideModal();
+                    setTimeout(() => {
+                        const section = document.querySelector(target);
+                        if (section) section.scrollIntoView({ behavior: 'smooth' });
+                    }, 200);
+                }
+            });
+
+            // Click sulle azioni (es. scarica CV)
+            suggestionsActions.addEventListener('click', function (e) {
+                if (e.target.tagName === 'LI') {
+                    const action = e.target.getAttribute('data-action');
+                    const href = e.target.getAttribute('data-href');
+                    hideModal();
+                    if (action === 'download-cv' && href) {
+                        setTimeout(() => {
+                            window.open(href, '_blank');
+                        }, 200);
+                    }
+                }
+            });
+
+            // Click sui risultati contenuto
+            suggestionsContent.addEventListener('click', function (e) {
+                let li = e.target;
+                // Se clicchi su <strong> o <span> risali al <li>
+                while (li && li.tagName !== 'LI') li = li.parentElement;
+                if (!li) return;
+                const target = li.getAttribute('data-target');
+                const isExternal = li.getAttribute('data-external') === '1';
+                hideModal();
+                setTimeout(() => {
+                    if (isExternal) {
+                        window.open(target, '_blank');
+                    } else {
+                        const section = document.querySelector(target);
+                        if (section) section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 200);
+            });
+
+            // Scorciatoia tastiera: Ctrl+K o Cmd+K per aprire/chiudere la ricerca
+            document.addEventListener('keydown', function (e) {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    if (searchModal.style.display === 'flex') {
+                        hideModal();
+                    } else {
+                        showModal();
+                    }
+                }
+            });
+
+            // Aggiorna l'indice dei contenuti se la pagina cambia (opzionale)
+            window.addEventListener('load', () => {
+                contentIndex = getContentIndex();
+            });
+
+            // Inizializza suggerimenti all'apertura
+            updateSuggestions('');
         });
     </script>
 </body>
