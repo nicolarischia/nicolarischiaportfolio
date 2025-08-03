@@ -40,6 +40,3 @@ Qui puoi trovare il codice sorgente del sito che presenta le mie competenze, i m
 **Nicola Rischia**  
 [GitHub](https://github.com/nicolarischia)
 
----
-
-Portfolio realizzato con passione 💚🧡
