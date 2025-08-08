@@ -600,6 +600,15 @@
             align-items: center;
             justify-content: center;
             background: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+
+        #search-modal.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
         .search-backdrop {
@@ -607,6 +616,12 @@
             inset: 0;
             background: #000a;
             z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #search-modal.visible .search-backdrop {
+            opacity: 1;
         }
 
         .search-box {
@@ -615,8 +630,10 @@
             background: transparent;
             border-radius: 1.3rem;
             padding: 2rem 6vw 1.5rem 6vw;
-            min-width: 1000px;
+            width: 90%;
             max-width: 1400px;
+            min-width: 320px;
+            max-height: 90vh;
             box-shadow: 0 8px 32px 0 #0006, 0 2px 24px #7cf03d33;
             display: flex;
             flex-direction: column;
@@ -625,6 +642,12 @@
             overflow: hidden;
             backdrop-filter: blur(18px) saturate(160%);
             -webkit-backdrop-filter: blur(18px) saturate(160%);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        #search-modal.visible .search-box {
+            transform: scale(1) translateY(0);
         }
 
         .search-box::before {
@@ -664,7 +687,7 @@
 
         #close-search {
             position: absolute;
-            top: 1.2rem;
+            top: 1.575rem;
             right: 1.2rem;
             background: none;
             border: none;
@@ -701,6 +724,28 @@
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
+            max-height: calc(90vh - 200px);
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        /* Scrollbar personalizzata per la ricerca */
+        #search-sections::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #search-sections::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        #search-sections::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #7cf03d, #ffa500);
+            border-radius: 3px;
+        }
+
+        #search-sections::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(90deg, #a8ff78, #ffb84d);
         }
 
         .search-section-title {
@@ -735,7 +780,145 @@
             color: var(--bg-color);
         }
 
-        /* ...existing code... */
+        /* Responsive per il box di ricerca */
+        @media (max-width: 768px) {
+            #search-modal {
+                padding: 0.5rem;
+            }
+
+            .search-box {
+                padding: 1rem 4vw 0.8rem 4vw;
+                width: 95%;
+                min-width: 280px;
+                max-height: 85vh;
+            }
+
+            #search-sections {
+                max-height: calc(85vh - 180px);
+            }
+
+            #search-input {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .search-section-title {
+                font-size: 0.95rem;
+            }
+
+            .search-section ul li {
+                font-size: 1rem;
+                padding: 0.7rem 1rem;
+            }
+
+            #close-search {
+                top: 1.675rem;
+                right: 1.2rem;
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #search-modal {
+                padding: 0.3rem;
+            }
+
+            .search-box {
+                padding: 1rem 3vw 0.8rem 3vw;
+                width: 98%;
+                min-width: 250px;
+                max-height: 80vh;
+            }
+
+            #search-sections {
+                max-height: calc(80vh - 160px);
+            }
+
+            #search-input {
+                font-size: 0.9rem;
+                padding: 0.7rem 0.8rem;
+            }
+
+            .search-section-title {
+                font-size: 0.9rem;
+            }
+
+            .search-section ul li {
+                font-size: 0.9rem;
+                padding: 0.6rem 0.8rem;
+            }
+
+            #close-search {
+                top: 1.675rem;
+                right: 1.2rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Responsive verticale per schermi bassi */
+        @media (max-height: 600px) {
+            #search-modal {
+                padding: 0.5rem;
+            }
+
+            .search-box {
+                padding: 1rem 4vw 0.8rem 4vw;
+                max-height: 95vh;
+            }
+
+            #search-sections {
+                max-height: calc(95vh - 140px);
+                gap: 0.8rem;
+            }
+
+            #search-input {
+                padding: 0.7rem 1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .search-section-title {
+                margin-bottom: 0.2rem;
+            }
+
+            .search-section ul li {
+                padding: 0.6rem 1rem;
+                margin-bottom: 0.1rem;
+            }
+        }
+
+        @media (max-height: 500px) {
+            .search-box {
+                padding: 0.8rem 3vw 0.6rem 3vw;
+                max-height: 98vh;
+            }
+
+            #search-sections {
+                max-height: calc(98vh - 120px);
+                gap: 0.6rem;
+            }
+
+            #search-input {
+                padding: 0.6rem 0.8rem;
+                margin-bottom: 0.6rem;
+                font-size: 0.9rem;
+            }
+
+            .search-section-title {
+                font-size: 0.9rem;
+                margin-bottom: 0.15rem;
+            }
+
+            .search-section ul li {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            #close-search {
+                top: 0.6rem;
+                right: 0.6rem;
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 
@@ -1192,6 +1375,7 @@
             // Indicizza i contenuti testuali del sito per la ricerca libera
             function getContentIndex() {
                 const results = [];
+                
                 // Cerca in tutte le sezioni principali
                 document.querySelectorAll('section').forEach(section => {
                     const id = section.id;
@@ -1201,10 +1385,12 @@
                         results.push({
                             label: `${title}`,
                             snippet: text.length > 120 ? text.slice(0, 120) + '...' : text,
-                            target: `#${id}`
+                            target: `#${id}`,
+                            keywords: [title.toLowerCase(), ...title.toLowerCase().split(' ')]
                         });
                     }
                 });
+                
                 // Cerca anche nei progetti (portfolio-detail)
                 document.querySelectorAll('.portfolio-detail').forEach((el, idx) => {
                     const title = el.querySelector('h3') ? el.querySelector('h3').innerText : '';
@@ -1213,30 +1399,92 @@
                         results.push({
                             label: `Progetto: ${title}`,
                             snippet: text.length > 120 ? text.slice(0, 120) + '...' : text,
-                            target: '#progetti'
+                            target: '#progetti',
+                            keywords: [title.toLowerCase(), 'progetto', 'portfolio', ...title.toLowerCase().split(' ')]
                         });
                     }
                 });
-                // Cerca anche nei contatti
+                
+                // Cerca nei servizi
+                document.querySelectorAll('.services-box').forEach((service, idx) => {
+                    const title = service.querySelector('h3') ? service.querySelector('h3').innerText : '';
+                    const text = service.innerText.replace(/\s+/g, ' ').trim();
+                    if (title && text) {
+                        results.push({
+                            label: `Servizio: ${title}`,
+                            snippet: text.length > 120 ? text.slice(0, 120) + '...' : text,
+                            target: '#services',
+                            keywords: [title.toLowerCase(), 'servizio', 'servizi', ...title.toLowerCase().split(' ')]
+                        });
+                    }
+                });
+                
+                // Cerca nelle skills
+                document.querySelectorAll('.skill').forEach((skill, idx) => {
+                    const name = skill.querySelector('span') ? skill.querySelector('span').innerText : '';
+                    if (name) {
+                        results.push({
+                            label: `Skill: ${name}`,
+                            snippet: `Competenza in ${name}`,
+                            target: '#skills',
+                            keywords: [name.toLowerCase(), 'skill', 'competenza', 'tecnologia']
+                        });
+                    }
+                });
+                
+                // Cerca anche nei contatti con precisione migliorata
                 document.querySelectorAll('.contacts a').forEach(link => {
                     const label = link.innerText.trim();
                     const href = link.getAttribute('href');
+                    const icon = link.querySelector('i');
+                    const iconClass = icon ? icon.className : '';
+                    
                     if (label && href) {
+                        // Determina il tipo di contatto basato sull'icona o href
+                        let contactType = '';
+                        let keywords = [label.toLowerCase()];
+                        
+                        if (href.includes('mailto:')) {
+                            contactType = 'Email';
+                            keywords.push('email', 'mail', 'gmail', 'nicolarischia1@gmail.com');
+                        } else if (href.includes('github.com')) {
+                            contactType = 'GitHub';
+                            keywords.push('github', 'repo', 'repository', 'code');
+                        } else if (href.includes('linkedin.com')) {
+                            contactType = 'LinkedIn';
+                            keywords.push('linkedin', 'professional', 'network');
+                        } else if (href.includes('wa.me')) {
+                            contactType = 'WhatsApp';
+                            keywords.push('whatsapp', 'wa', 'chat', '3664079323');
+                        } else if (href.includes('.pdf')) {
+                            contactType = 'CV';
+                            keywords.push('cv', 'curriculum', 'resume', 'scarica');
+                        }
+                        
                         results.push({
-                            label: `Contatto: ${label}`,
+                            label: `Contatto: ${contactType || label}`,
                             snippet: href,
                             target: href.startsWith('http') || href.startsWith('mailto') ? href : '#contatti',
-                            isExternal: href.startsWith('http') || href.startsWith('mailto')
+                            isExternal: href.startsWith('http') || href.startsWith('mailto'),
+                            keywords: keywords
                         });
                     }
                 });
+                
+                // Debug: log dei risultati
+                console.log('Contenuti indicizzati:', results.length);
                 return results;
             }
 
             let contentIndex = getContentIndex();
+            
+            // Debug: verifica che contentIndex sia stato inizializzato
+            console.log('ContentIndex inizializzato con', contentIndex.length, 'elementi');
 
             function showModal() {
                 searchModal.style.display = 'flex';
+                // Forza un reflow per assicurarsi che l'animazione funzioni
+                searchModal.offsetHeight;
                 setTimeout(() => {
                     searchModal.classList.add('visible');
                 }, 10);
@@ -1256,7 +1504,8 @@
 
             function updateSuggestions(query) {
                 const q = query.trim().toLowerCase();
-                // Sezioni
+                
+                // Sezioni - solo una voce attiva alla volta
                 let sectionResults = [];
                 if (q === "") {
                     sectionResults = sectionData;
@@ -1271,36 +1520,53 @@
                 ).join('');
                 currentSectionIndex = sectionResults.length ? 0 : -1;
 
-                // Azioni (es. scarica CV)
+                // Azioni (es. scarica CV) - solo se non c'è una sezione attiva
                 let actionResults = [];
-                if (q === "") {
+                if (q === "" && sectionResults.length === 0) {
                     actionResults = actionData;
-                } else {
+                } else if (q !== "") {
                     actionResults = actionData.filter(item =>
                         item.label.toLowerCase().includes(q) ||
                         item.keywords.some(k => k.includes(q))
                     );
                 }
                 suggestionsActions.innerHTML = actionResults.map((item, idx) =>
-                    `<li data-action="${item.action}" data-href="${item.href || ''}"${idx === 0 ? ' class="active"' : ''}>${item.label}</li>`
+                    `<li data-action="${item.action}" data-href="${item.href || ''}"${idx === 0 && currentSectionIndex === -1 ? ' class="active"' : ''}>${item.label}</li>`
                 ).join('');
-                currentActionIndex = actionResults.length ? 0 : -1;
+                currentActionIndex = actionResults.length && currentSectionIndex === -1 ? 0 : -1;
 
-                // Ricerca libera nei contenuti
+                // Ricerca libera nei contenuti - sempre attiva quando c'è una query
                 let contentResults = [];
                 if (q.length > 1) {
                     contentResults = contentIndex.filter(item =>
                         item.label.toLowerCase().includes(q) ||
-                        item.snippet.toLowerCase().includes(q)
+                        item.snippet.toLowerCase().includes(q) ||
+                        (item.keywords && item.keywords.some(k => k.includes(q)))
                     );
                 }
                 suggestionsContent.innerHTML = contentResults.map((item, idx) =>
-                    `<li data-target="${item.target}" data-external="${item.isExternal ? '1' : ''}"${idx === 0 ? ' class="active"' : ''}>
+                    `<li data-target="${item.target}" data-external="${item.isExternal ? '1' : ''}"${idx === 0 && currentSectionIndex === -1 && currentActionIndex === -1 ? ' class="active"' : ''}>
                 <strong>${item.label}</strong><br>
                 <span style="font-size:0.95em;color:#ccc;">${item.snippet}</span>
             </li>`
                 ).join('');
-                currentContentIndex = contentResults.length ? 0 : -1;
+                currentContentIndex = contentResults.length && currentSectionIndex === -1 && currentActionIndex === -1 ? 0 : -1;
+                
+                // Debug: log dei risultati
+                if (q.length > 0) {
+                    console.log(`Ricerca "${q}":`, {
+                        sezioni: sectionResults.length,
+                        azioni: actionResults.length,
+                        contenuti: contentResults.length
+                    });
+                }
+                
+                // Reset degli indici quando cambia la query
+                if (q === "") {
+                    currentSectionIndex = sectionResults.length ? 0 : -1;
+                    currentActionIndex = sectionResults.length === 0 && actionResults.length ? 0 : -1;
+                    currentContentIndex = sectionResults.length === 0 && actionResults.length === 0 && contentResults.length ? 0 : -1;
+                }
             }
 
             openSearchBtn.addEventListener('click', showModal);
@@ -1316,58 +1582,120 @@
                 const sectionItems = suggestionsSections.querySelectorAll('li');
                 const actionItems = suggestionsActions.querySelectorAll('li');
                 const contentItems = suggestionsContent.querySelectorAll('li');
-                let total = sectionItems.length + actionItems.length + contentItems.length;
-                if (!total) return;
+                
+                // Crea un array unificato di tutti gli elementi
+                const allItems = [...sectionItems, ...actionItems, ...contentItems];
+                if (allItems.length === 0) return;
 
-                // Navigazione con frecce
+                // Trova l'elemento attualmente attivo
+                let currentActiveIndex = -1;
+                allItems.forEach((item, index) => {
+                    if (item.classList.contains('active')) {
+                        currentActiveIndex = index;
+                    }
+                });
+
                 if (e.key === 'ArrowDown') {
                     e.preventDefault();
-                    if (currentSectionIndex < sectionItems.length - 1) {
-                        currentSectionIndex++;
-                        currentActionIndex = -1;
-                        currentContentIndex = -1;
-                    } else if (actionItems.length && currentActionIndex < actionItems.length - 1) {
-                        currentActionIndex++;
-                        currentSectionIndex = sectionItems.length - 1;
-                        currentContentIndex = -1;
-                    } else if (contentItems.length && currentContentIndex < contentItems.length - 1) {
-                        currentContentIndex++;
-                        currentSectionIndex = sectionItems.length - 1;
-                        currentActionIndex = actionItems.length - 1;
-                    }
+                    
+                    // Rimuovi tutte le classi active
+                    allItems.forEach(li => li.classList.remove('active'));
+                    
+                    // Vai all'elemento successivo (con ciclo)
+                    let nextIndex = (currentActiveIndex + 1) % allItems.length;
+                    allItems[nextIndex].classList.add('active');
+                    
+                    // Aggiorna gli indici interni
+                    updateInternalIndices(nextIndex, sectionItems.length, actionItems.length);
+                    
+                    // Scroll automatico all'elemento attivo
+                    scrollToActiveElement(allItems[nextIndex]);
+                    
                 } else if (e.key === 'ArrowUp') {
                     e.preventDefault();
-                    if (currentContentIndex > 0) {
-                        currentContentIndex--;
-                    } else if (currentContentIndex === 0) {
-                        currentContentIndex = -1;
-                        currentActionIndex = actionItems.length - 1;
-                    } else if (currentActionIndex > 0) {
-                        currentActionIndex--;
-                    } else if (currentActionIndex === 0) {
-                        currentActionIndex = -1;
-                        currentSectionIndex = sectionItems.length - 1;
-                    } else if (currentSectionIndex > 0) {
-                        currentSectionIndex--;
-                    }
+                    
+                    // Rimuovi tutte le classi active
+                    allItems.forEach(li => li.classList.remove('active'));
+                    
+                    // Vai all'elemento precedente (con ciclo)
+                    let prevIndex = currentActiveIndex <= 0 ? allItems.length - 1 : currentActiveIndex - 1;
+                    allItems[prevIndex].classList.add('active');
+                    
+                    // Aggiorna gli indici interni
+                    updateInternalIndices(prevIndex, sectionItems.length, actionItems.length);
+                    
+                    // Scroll automatico all'elemento attivo
+                    scrollToActiveElement(allItems[prevIndex]);
+                    
                 } else if (e.key === 'Enter') {
                     e.preventDefault();
-                    if (currentSectionIndex >= 0 && sectionItems[currentSectionIndex]) {
-                        sectionItems[currentSectionIndex].click();
-                    } else if (currentActionIndex >= 0 && actionItems[currentActionIndex]) {
-                        actionItems[currentActionIndex].click();
-                    } else if (currentContentIndex >= 0 && contentItems[currentContentIndex]) {
-                        contentItems[currentContentIndex].click();
+                    if (currentActiveIndex >= 0 && allItems[currentActiveIndex]) {
+                        allItems[currentActiveIndex].click();
                     }
                 }
-                sectionItems.forEach((li, idx) => li.classList.toggle('active', idx === currentSectionIndex));
-                actionItems.forEach((li, idx) => li.classList.toggle('active', idx === currentActionIndex));
-                contentItems.forEach((li, idx) => li.classList.toggle('active', idx === currentContentIndex));
             });
+
+            // Funzione helper per aggiornare gli indici interni
+            function updateInternalIndices(globalIndex, sectionCount, actionCount) {
+                if (globalIndex < sectionCount) {
+                    currentSectionIndex = globalIndex;
+                    currentActionIndex = -1;
+                    currentContentIndex = -1;
+                } else if (globalIndex < sectionCount + actionCount) {
+                    currentSectionIndex = -1;
+                    currentActionIndex = globalIndex - sectionCount;
+                    currentContentIndex = -1;
+                } else {
+                    currentSectionIndex = -1;
+                    currentActionIndex = -1;
+                    currentContentIndex = globalIndex - sectionCount - actionCount;
+                }
+            }
+
+            // Funzione per scroll automatico all'elemento attivo
+            function scrollToActiveElement(activeElement) {
+                if (!activeElement) return;
+                
+                // Trova il container di scroll (search-sections)
+                const scrollContainer = document.getElementById('search-sections');
+                if (!scrollContainer) return;
+                
+                // Calcola la posizione dell'elemento rispetto al container
+                const containerRect = scrollContainer.getBoundingClientRect();
+                const elementRect = activeElement.getBoundingClientRect();
+                
+                // Calcola se l'elemento è fuori dalla viewport
+                const isAbove = elementRect.top < containerRect.top;
+                const isBelow = elementRect.bottom > containerRect.bottom;
+                
+                if (isAbove) {
+                    // Scroll verso l'alto per mostrare l'elemento
+                    const scrollAmount = elementRect.top - containerRect.top - 10; // 10px di margine
+                    scrollContainer.scrollBy({
+                        top: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                } else if (isBelow) {
+                    // Scroll verso il basso per mostrare l'elemento
+                    const scrollAmount = elementRect.bottom - containerRect.bottom + 10; // 10px di margine
+                    scrollContainer.scrollBy({
+                        top: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+            }
 
             // Click sulle sezioni
             suggestionsSections.addEventListener('click', function (e) {
                 if (e.target.tagName === 'LI') {
+                    // Rimuovi tutte le classi active
+                    suggestionsSections.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                    suggestionsActions.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                    suggestionsContent.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                    
+                    // Aggiungi active solo all'elemento cliccato
+                    e.target.classList.add('active');
+                    
                     const target = e.target.getAttribute('data-target');
                     hideModal();
                     setTimeout(() => {
@@ -1380,6 +1708,14 @@
             // Click sulle azioni (es. scarica CV)
             suggestionsActions.addEventListener('click', function (e) {
                 if (e.target.tagName === 'LI') {
+                    // Rimuovi tutte le classi active
+                    suggestionsSections.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                    suggestionsActions.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                    suggestionsContent.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                    
+                    // Aggiungi active solo all'elemento cliccato
+                    e.target.classList.add('active');
+                    
                     const action = e.target.getAttribute('data-action');
                     const href = e.target.getAttribute('data-href');
                     hideModal();
@@ -1397,6 +1733,15 @@
                 // Se clicchi su <strong> o <span> risali al <li>
                 while (li && li.tagName !== 'LI') li = li.parentElement;
                 if (!li) return;
+                
+                // Rimuovi tutte le classi active
+                suggestionsSections.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                suggestionsActions.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                suggestionsContent.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                
+                // Aggiungi active solo all'elemento cliccato
+                li.classList.add('active');
+                
                 const target = li.getAttribute('data-target');
                 const isExternal = li.getAttribute('data-external') === '1';
                 hideModal();
