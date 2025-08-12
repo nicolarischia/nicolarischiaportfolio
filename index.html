@@ -544,6 +544,118 @@
             position: relative;
         }
 
+        /* --- EDUCATION / EXPERIENCE TIMELINE --- */
+        .education {
+            /* eredita gli stili base di section */
+        }
+
+        .edu-timeline {
+            position: relative;
+            margin-top: 2rem;
+            padding-left: 2.75rem;
+            /* spazio per linea e marker */
+        }
+
+        .edu-timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 1.1rem;
+            /* posizione linea verticale */
+            width: 2px;
+            background: linear-gradient(180deg, #ffffff30, #ffffff12);
+        }
+
+        .edu-item {
+            position: relative;
+            padding: 0 0 1.5rem 0;
+            /* spazio tra elementi */
+        }
+
+        .edu-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .edu-item::before {
+            content: "";
+            position: absolute;
+            left: 1.1rem;
+            /* centrato sulla linea */
+            top: 0.55rem;
+            /* allineamento con il titolo */
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--main-color);
+            border: 3px solid var(--secondary-bg-color);
+            box-shadow: 0 0 0 2px rgba(124, 240, 61, 0.18), 0 0 12px rgba(124, 240, 61, 0.15);
+        }
+
+        .edu-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white-color);
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        .edu-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem 1rem;
+            margin: 0.25rem 0 0.5rem 0;
+            font-size: 0.98rem;
+            opacity: 0.9;
+            justify-content: center;
+        }
+
+        .edu-org {
+            color: var(--white-color);
+            font-weight: 500;
+        }
+
+        .edu-date {
+            color: var(--white-color);
+            opacity: 0.75;
+        }
+
+        .edu-desc {
+            color: var(--white-color);
+            opacity: 0.9;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 70ch;
+            /* massima larghezza per leggibilità */
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            /* max 2 righe */
+            overflow: hidden;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .edu-timeline {
+                padding-left: 1.8rem;
+            }
+
+            .edu-timeline::before,
+            .edu-item::before {
+                left: 0.7rem;
+            }
+
+            .edu-title {
+                font-size: 1.1rem;
+            }
+
+            .edu-meta {
+                font-size: 0.95rem;
+            }
+        }
+
         /* --- LOADER STILI --- */
         #loader {
             position: fixed;
@@ -682,6 +794,11 @@
         .result-icon.service {
             background: #f03da533;
             color: #f03da5;
+        }
+
+        .result-icon.education {
+            background: #f1c40f33;
+            color: #f1c40f;
         }
 
         .result-icon.contact {
@@ -865,8 +982,13 @@
         }
 
         .search-history-item {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            position: relative;
             padding: 0.3rem 0.8rem;
+            padding-right: 0.6rem;
+            /* spazio per la X */
             margin: 0.2rem 0.3rem 0.2rem 0;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 15px;
@@ -878,6 +1000,31 @@
 
         .search-history-item:hover {
             background: rgba(124, 240, 61, 0.2);
+        }
+
+        .search-history-remove {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            font-size: 12px;
+            line-height: 1;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--white-color);
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.15s ease;
+        }
+
+        .search-history-item:hover .search-history-remove {
+            opacity: 1;
+        }
+
+        .search-history-remove:hover {
+            background: linear-gradient(90deg, #7cf03d, #ffa500);
+            color: var(--bg-color);
         }
 
         /* Modal di dettaglio */
@@ -1373,6 +1520,55 @@
         </div>
     </section>
 
+    <!-- education / experiences section -->
+    <section class="education" id="formazione">
+        <h2>Formazione / Esperienze e Certificazioni</h2>
+        <div class="edu-timeline">
+            <!-- ITEM 1: Esperienza lavorativa -->
+            <div class="edu-item">
+                <div class="edu-title">Diploma Perito Informatico</div>
+                <div class="edu-meta">
+                    <span class="edu-org">Istituto Tecnico Tecnologico "Allievi - San Gallo"</span>
+                    <span class="edu-date">2025 – Terni</span>
+                </div>
+                <p class="edu-desc">Competenze acquisite in programmazione, reti informatiche, sistemi e tecnologie digitali.</p>
+            </div>
+            <!-- ITEM 2: Formazione
+            <div class="edu-item">
+                <div class="edu-title">Corso Avanzato React e Architetture Frontend</div>
+                <div class="edu-meta">
+                    <span class="edu-org">Autoformazione strutturata</span>
+                    <span class="edu-date">2023 – 2024</span>
+                </div>
+                <p class="edu-desc">Approfondimento di componenti, stato globale, routing e best practice UI/UX per
+                    progetti scalabili.</p>
+            </div>
+
+             ITEM 3: Certificazione
+            <div class="edu-item">
+                <div class="edu-title">Certificazione: Fondamenti di JavaScript</div>
+                <div class="edu-meta">
+                    <span class="edu-org">freeCodeCamp</span>
+                    <span class="edu-date">2023</span>
+                </div>
+                <p class="edu-desc">Esercitazioni pratiche su algoritmi, manipolazione del DOM e programmazione
+                    asincrona moderna.</p>
+            </div>
+
+             ITEM 4: Istruzione
+            <div class="edu-item">
+                <div class="edu-title">Reti e Sistemi – Laboratori Cisco Packet Tracer</div>
+                <div class="edu-meta">
+                    <span class="edu-org">Percorso tecnico</span>
+                    <span class="edu-date">2022 – 2023</span>
+                </div>
+                <p class="edu-desc">Progettazione di topologie, indirizzamento e simulazioni di base per l’analisi del
+                    traffico.</p>
+            </div>
+            -->
+        </div>
+    </section>
+
     <!-- portfolio section -->
     <section class="portfolio" id="progetti">
         <h2>I Miei Progetti</h2>
@@ -1476,6 +1672,7 @@
         <a href="#chi-sono" class="timeline-dot" data-section="chi-sono" title="Chi sono"></a>
         <a href="#services" class="timeline-dot" data-section="services" title="Servizi"></a>
         <a href="#skills" class="timeline-dot" data-section="skills" title="Skills"></a>
+        <a href="#formazione" class="timeline-dot" data-section="formazione" title="Formazione"></a>
         <a href="#progetti" class="timeline-dot" data-section="progetti" title="Progetti"></a>
         <a href="#contatti" class="timeline-dot" data-section="contatti" title="Contatti"></a>
     </div>
@@ -1499,6 +1696,9 @@
                 </div>
                 <div class="filter-chip" data-filter="skills">
                     <i class="fas fa-cogs"></i> Skills
+                </div>
+                <div class="filter-chip" data-filter="education">
+                    <i class="fas fa-graduation-cap"></i> Formazione
                 </div>
                 <div class="filter-chip" data-filter="services">
                     <i class="fas fa-briefcase"></i> Servizi
@@ -1802,6 +2002,17 @@
                         description: "Informazioni personali e presentazione professionale"
                     },
                     {
+                        label: "Formazione / Esperienze e Certificazioni",
+                        keywords: [
+                            "formazione", "esperienze", "certificazioni", "studio", "education",
+                            "corso", "ruolo", "azienda", "ente", "attestato", "cv"
+                        ],
+                        target: "#formazione",
+                        type: "section",
+                        icon: "fas fa-graduation-cap",
+                        description: "Percorso di studi, esperienze professionali e certificazioni"
+                    },
+                    {
                         label: "Servizi",
                         keywords: ["servizi", "offerta", "web", "wix", "dati", "networking", "form", "cosa faccio"],
                         target: "#services",
@@ -1950,6 +2161,28 @@
                                 'servizi',
                                 ...title.toLowerCase().split(' '),
                                 ...description.toLowerCase().split(' ').filter(w => w.length > 3)
+                            ]
+                        });
+                    }
+                });
+
+                // Indicizza formazione/esperienze/certificazioni
+                document.querySelectorAll('#formazione .edu-item').forEach((item, idx) => {
+                    const title = item.querySelector('.edu-title')?.innerText || '';
+                    const org = item.querySelector('.edu-org')?.innerText || '';
+                    const date = item.querySelector('.edu-date')?.innerText || '';
+                    const desc = item.querySelector('.edu-desc')?.innerText || '';
+
+                    if (title) {
+                        results.push({
+                            label: title,
+                            snippet: `${org ? org + ' • ' : ''}${date}${desc ? ' — ' + desc : ''}`,
+                            target: '#formazione',
+                            type: 'education',
+                            icon: 'fas fa-graduation-cap',
+                            keywords: [
+                                'formazione', 'esperienza', 'certificazione', 'corso', 'ruolo', 'azienda', 'ente',
+                                title.toLowerCase(), org.toLowerCase(), ...title.toLowerCase().split(' ').filter(w => w.length > 2)
                             ]
                         });
                     }
@@ -2327,9 +2560,12 @@
                 }
 
                 // Cerca nei contenuti indicizzati
-                if (filter === 'all' || ['projects', 'skills', 'services', 'contacts'].includes(filter)) {
+                if (filter === 'all' || ['projects', 'skills', 'services', 'contacts', 'education'].includes(filter)) {
                     contentIndex.forEach(item => {
-                        if (filter !== 'all' && item.type !== filter.slice(0, -1)) return;
+                        if (filter !== 'all') {
+                            if (filter === 'education' && item.type !== 'education') return;
+                            if (filter !== 'education' && item.type !== filter.slice(0, -1)) return;
+                        }
 
                         const score = calculateRelevanceScore(item, processedQuery);
                         if (score > 0) {
@@ -2619,16 +2855,39 @@
 
                 searchHistoryDiv.style.display = 'block';
                 searchHistoryItems.innerHTML = searchHistory.map(item =>
-                    `<span class="search-history-item">${item}</span>`
+                    `<span class="search-history-item" data-query="${item.replace(/"/g, '&quot;')}">
+                        <span class="search-history-text">${item}</span>
+                        <span class="search-history-remove" title="Rimuovi">×</span>
+                    </span>`
                 ).join('');
 
                 // Aggiungi gestori eventi
                 searchHistoryItems.querySelectorAll('.search-history-item').forEach(el => {
-                    el.addEventListener('click', () => {
-                        searchInput.value = el.textContent;
-                        updateSearchResults(el.textContent);
+                    // click su chip (testo) esegue la ricerca
+                    el.addEventListener('click', (e) => {
+                        if ((e.target).classList && (e.target).classList.contains('search-history-remove')) return; // gestito separatamente
+                        const q = el.querySelector('.search-history-text')?.textContent || '';
+                        if (!q) return;
+                        searchInput.value = q;
+                        updateSearchResults(q);
                         searchInput.focus();
                     });
+
+                    // click sulla X rimuove dall'elenco e da localStorage senza trigger ricerca
+                    const removeBtn = el.querySelector('.search-history-remove');
+                    if (removeBtn) {
+                        removeBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const q = el.getAttribute('data-query') || '';
+                            if (!q) return;
+                            searchHistory = searchHistory.filter(item => item !== q);
+                            localStorage.setItem('portfolioSearchHistory', JSON.stringify(searchHistory));
+                            el.remove();
+                            if (searchHistoryItems.children.length === 0) {
+                                searchHistoryDiv.style.display = 'none';
+                            }
+                        });
+                    }
                 });
             }
 
@@ -2694,6 +2953,7 @@
                 const placeholders = {
                     'all': '🔍 Cerca nel sito... (prova: "progetti React", "contattami", "scarica CV")',
                     'projects': '🔍 Cerca nei progetti... (prova: "React", "Node.js", "full-stack")',
+                    'education': '🔍 Cerca nella formazione... (prova: "certificazioni", "ruolo", "ente")',
                     'skills': '🔍 Cerca nelle competenze... (prova: "JavaScript", "MongoDB", "frontend")',
                     'services': '🔍 Cerca nei servizi... (prova: "sviluppo web", "Wix", "networking")',
                     'contacts': '🔍 Cerca nei contatti... (prova: "email", "WhatsApp", "LinkedIn")',
