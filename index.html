@@ -1531,7 +1531,8 @@
                     <span class="edu-org">Istituto Tecnico Tecnologico "Allievi - San Gallo"</span>
                     <span class="edu-date">2025 – Terni</span>
                 </div>
-                <p class="edu-desc">Competenze acquisite in programmazione, reti informatiche, sistemi e tecnologie digitali.</p>
+                <p class="edu-desc">Competenze acquisite in programmazione, reti informatiche, sistemi e tecnologie
+                    digitali.</p>
             </div>
             <!-- ITEM 2: Formazione
             <div class="edu-item">
@@ -1710,7 +1711,20 @@
                     <i class="fas fa-bolt"></i> Azioni
                 </div>
                 <div class="filter-chip" data-filter="ai">
-                    <i class="fas fa-robot"></i> Chiedi all'AI
+                    <span class="ai-sparkles" aria-hidden="true"
+                        style="width:16px;height:16px;vertical-align:middle;display:inline-flex;align-items:center;justify-content:center;">
+                        <svg viewBox="0 0 64 64" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="aiSparklesGradFilter" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0" stop-color="#9b59b6" />
+                                    <stop offset="1" stop-color="#61dbfb" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M32 6 L38 22 L58 32 L38 42 L32 58 L26 42 L6 32 L26 22 Z"
+                                fill="url(#aiSparklesGradFilter)" />
+                        </svg>
+                    </span>
+                    Chiedi all'AI
                 </div>
             </div>
 
@@ -2663,7 +2677,19 @@
                 if (!query || query.trim().length < 3) {
                     searchResultsContainer.innerHTML = `
                         <div style="text-align:center; padding:2rem; color:#999;">
-                            <i class="fas fa-robot" style="font-size:3rem; margin-bottom:1rem; color:#9b59b6;"></i>
+                    <span aria-hidden="true" style="display:inline-block; width:44px; height:44px; margin-bottom:1rem;">
+                        <svg viewBox="0 0 64 64" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="aiSparklesGradHero" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0" stop-color="#9b59b6"/>
+                                    <stop offset="1" stop-color="#61dbfb"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M32 6 L38 22 L58 32 L38 42 L32 58 L26 42 L6 32 L26 22 Z" fill="url(#aiSparklesGradHero)"/>
+                            <path d="M12 10 L14 16 L20 18 L14 20 L12 26 L10 20 L4 18 L10 16 Z" fill="url(#aiSparklesGradHero)" opacity="0.9"/>
+                            <path d="M50 44 L52 50 L58 52 L52 54 L50 60 L48 54 L42 52 L48 50 Z" fill="url(#aiSparklesGradHero)" opacity="0.9"/>
+                        </svg>
+                    </span>
                             <h3 style="color:var(--main-color); margin-bottom:1rem;">Assistente AI (Beta)</h3>
                             <p>Chiedi qualsiasi cosa su Nicola, i suoi progetti, competenze o servizi!</p>
                             <div style="margin-top:1.5rem; font-size:0.9rem;">
@@ -2684,7 +2710,17 @@
                 searchLoading.style.display = 'none';
                 searchResultsContainer.innerHTML = `
                     <div class="ai-thinking">
-                        <i class="fas fa-robot"></i>
+                        <span aria-hidden="true" style="display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px;">
+                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                                <defs>
+                                    <linearGradient id="aiSparklesGradMini" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0" stop-color="#9b59b6"/>
+                                        <stop offset="1" stop-color="#61dbfb"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M32 10 L36 20 L50 32 L36 44 L32 54 L28 44 L14 32 L28 20 Z" fill="url(#aiSparklesGradMini)"/>
+                            </svg>
+                        </span>
                         <span>L'AI sta pensando</span>
                         <div class="dots">
                             <span></span>
@@ -2706,7 +2742,17 @@
                         searchResultsContainer.innerHTML = `
                             <div class="search-result ai-result" data-index="0">
                                 <div class="result-icon ai">
-                                    <i class="fas fa-robot"></i>
+                                    <span aria-hidden="true" style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px;">
+                                        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                                            <defs>
+                                                <linearGradient id="aiSparklesGradIcon" x1="0" y1="0" x2="1" y2="1">
+                                                    <stop offset="0" stop-color="#9b59b6"/>
+                                                    <stop offset="1" stop-color="#61dbfb"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <path d="M32 10 L36 20 L50 32 L36 44 L32 54 L28 44 L14 32 L28 20 Z" fill="url(#aiSparklesGradIcon)"/>
+                                        </svg>
+                                    </span>
                                 </div>
                                 <div class="search-result-content">
                                     <div class="search-result-title">Risposta AI</div>
@@ -2958,7 +3004,7 @@
                     'services': '🔍 Cerca nei servizi... (prova: "sviluppo web", "Wix", "networking")',
                     'contacts': '🔍 Cerca nei contatti... (prova: "email", "WhatsApp", "LinkedIn")',
                     'actions': '🔍 Cerca azioni... (prova: "scarica CV", "WhatsApp", "GitHub")',
-                    'ai': '🤖 Chiedi all\'AI... (prova: "Chi sei?", "Che progetti hai fatto?", "Come ti contatto?")'
+                    'ai': '✨ Chiedi all\'AI... (prova: "Chi sei?", "Che progetti hai fatto?", "Come ti contatto?")'
                 };
 
                 searchInput.placeholder = placeholders[filter] || placeholders['all'];
